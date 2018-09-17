@@ -20,7 +20,10 @@ wp-tests-config.php
 /src/wp-content/blogs.dir
 /src/wp-content/languages
 /src/wp-content/mu-plugins
-/src/wp-content/plugins
+/src/wp-content/plugins/*
+!/src/wp-content/plugins/__core__xml-rpc
+!/src/wp-content/plugins/akismet
+!/src/wp-content/plugins/hello.php
 /src/wp-content/themes/*
 !/src/wp-content/themes/twentyten
 !/src/wp-content/themes/twentyeleven

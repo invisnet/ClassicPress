@@ -28,6 +28,10 @@ if ( isset($HTTP_RAW_POST_DATA) )
 /** Include the bootstrap for setting up ClassicPress environment */
 include( dirname( __FILE__ ) . '/wp-load.php' );
 
+/** Check XML-RPC is supported */
+if (!defined('__CORE__XML_RPC'))
+    exit;
+
 if ( isset( $_GET['rsd'] ) ) { // http://cyber.law.harvard.edu/blogs/gems/tech/rsd.html
 header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
 ?>
