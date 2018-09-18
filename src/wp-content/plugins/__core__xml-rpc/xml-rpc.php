@@ -11,7 +11,7 @@ License: GPLv2 or later
 Provides: __CORE__XML_RPC
 */
 
-namespace net\classicpress\core\plugin\xml-rpc;
+namespace ClassicPress\Core\Plugin\XML_RPC;
 
 define('__CORE__XML_RPC', true);
 
