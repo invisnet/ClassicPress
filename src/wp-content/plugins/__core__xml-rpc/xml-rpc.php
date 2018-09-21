@@ -13,5 +13,5 @@ Provides: __CORE__XML_RPC
 
 namespace ClassicPress\Core\Plugin\XML_RPC;
 
-define('__CORE__XML_RPC', true);
+define( '__CORE__XML_RPC', true );
 
