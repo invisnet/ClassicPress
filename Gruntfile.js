@@ -91,6 +91,7 @@ module.exports = function(grunt) {
 						cwd: SOURCE_DIR,
 						src: [
 							'**',
+							'!wp-content/plugins/test-*',
 							'!wp-includes/js/media/**',
 							'!**/.{svn,git}/**', // Ignore version control directories.
 							// Ignore unminified versions of external libs we don't ship:
