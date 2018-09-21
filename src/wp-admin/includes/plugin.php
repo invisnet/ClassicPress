@@ -563,10 +563,6 @@ function activate_plugin( $plugin, $redirect = '', $network_wide = false, $silen
 	if ( is_wp_error($valid) )
 		return $valid;
 
-    $valid_features = validate_plugin_features($plugin);
-    if (is_wp_error($valid_features))
-        return $valid_features;
-
 	if ( ( $network_wide && ! isset( $current[ $plugin ] ) ) || ( ! $network_wide && ! in_array( $plugin, $current ) ) ) {
 		if ( !empty($redirect) )
 			wp_redirect(add_query_arg('_error_nonce', wp_create_nonce('plugin-activation-error_' . $plugin), $redirect)); // we'll override this later if the plugin can be included without fatal error
@@ -981,64 +977,7 @@ function validate_plugin($plugin) {
 	$installed_plugins = get_plugins();
 	if ( ! isset($installed_plugins[$plugin]) )
 		return new WP_Error('no_plugin_header', __('The plugin does not have a valid header.'));
-
 	return 0;
-}
-
-/**
- * Validate the plugin required features. 
- *  
- * Check that the Required features are Provided by active plugin(s). 
- *  
- * @since 1.0.0 
- *  
- * @param string $plugin Path to the main plugin file from plugins directory. 
- * @return WP_Error|int 0 on success, WP_Error on failure. 
- */
-function validate_plugin_features($plugin)
-{
-    $installed_plugins = get_plugins();
-    $plugin_requires = $installed_plugins[$plugin]['Requires'];
-    $feature_provided_by = [];
-
-    foreach ($installed_plugins as $installed_plugin => $plugin_data) {
-        if ($plugin != $installed_plugin) { // no sense in checking ourself
-            $provided_features = array_intersect($plugin_requires, $plugin_data['Provides']);
-            if (count($provided_features)) {
-                if (is_plugin_inactive($installed_plugin)) {
-                    foreach ($provided_features as $feature) {
-                        $feature_provided_by[$feature] = array_merge((array)$feature_provided_by[$feature], [$installed_plugin]);
-                    }
-                } else {
-                    $plugin_requires = array_diff($plugin_requires, $plugin_data['Provides']);
-
-                    // remove any features from inactive plugins that this active plugin provides
-                    foreach ($plugin_data['Provides'] as $feature) {
-                        unset($feature_provided_by[$feature]);
-                    }
-                }
-            }
-        }
-    }
-    if (count($plugin_requires)) {
-        // TODO: Make this nicer - links to activate plugins, links to find plugins, etc
-        // TODO: Make this il8n-friendly
-        $msg_parts = [];
-        foreach ($plugin_requires as $requires) {
-            $msg_part = "<b>$requires</b> provided by ";
-            if (array_key_exists($requires, $feature_provided_by)) {
-                // TODO: array_map
-                $names = [];
-                foreach ($feature_provided_by[$requires] as $provided_by) {
-                    $names[] = '<b>'.$installed_plugins[$provided_by]['Name'].'</b>';
-                }
-                $msg_parts[] = "$msg_part inactive plugin(s) ".join(', ', $names);
-            } else {
-                $msg_parts[] = "$msg_part <b>no installed plugin</b>";
-            }
-        }
-        return new WP_Error('requirements_not_met', 'The plugin does not have all Requirements met:<ul><li>'.join('</li><li>', $msg_parts).'</li></ul>');
-    }
 }
 
 /**
