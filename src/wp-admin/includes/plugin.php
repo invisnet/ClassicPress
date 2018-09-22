@@ -111,20 +111,7 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 		$plugin_data['AuthorName'] = $plugin_data['Author'];
 	}
 
-	if ( $plugin_data['Requires'] ) {
-		// TODO: make this robust
-		$plugin_data['Requires'] = array_map( 'trim', explode( ',', strtoupper( $plugin_data['Requires'] ) ) );
-	} else {
-		$plugin_data['Requires'] = [];
-	}
-	if ( $plugin_data['Provides'] ) {
-		// TODO: make this robust
-		$plugin_data['Provides'] = array_map( 'trim', explode( ',', strtoupper( $plugin_data['Provides'] ) ) );
-	} else {
-		$plugin_data['Provides'] = [];
-	}
-
-	return $plugin_data;
+	return apply_filters( 'get_plugin_data', $plugin_data, $plugin_file, $markup, $translate );
 }
 
 /**
