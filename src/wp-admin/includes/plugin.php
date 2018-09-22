@@ -113,13 +113,13 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 
     if ($plugin_data['Requires']) {
         // TODO: make this robust
-        $plugin_data['Requires'] = array_map('trim', explode(',', $plugin_data['Requires']));
+        $plugin_data['Requires'] = array_map('trim', explode(',', strtoupper($plugin_data['Requires'])));
     } else {
         $plugin_data['Requires'] = [];
     }
     if ($plugin_data['Provides']) {
         // TODO: make this robust
-        $plugin_data['Provides'] = array_map('trim', explode(',', $plugin_data['Provides']));
+        $plugin_data['Provides'] = array_map('trim', explode(',', strtoupper($plugin_data['Provides'])));
     } else {
         $plugin_data['Provides'] = [];
     }
