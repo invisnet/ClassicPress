@@ -44,8 +44,8 @@ require_once(ABSPATH . 'wp-admin/includes/misc.php');
 require_once(ABSPATH . 'wp-admin/includes/options.php');
 
 /** ClassicPress Plugin Administration API */
-require_once(ABSPATH . 'cp-admin/includes/plugin.php');
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+require_once(ABSPATH . 'cp-admin/includes/plugin-dependencies.php');
 
 /** ClassicPress Post Administration API */
 require_once(ABSPATH . 'wp-admin/includes/post.php');
