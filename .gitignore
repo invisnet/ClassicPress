@@ -21,6 +21,7 @@ wp-tests-config.php
 /src/wp-content/languages
 /src/wp-content/mu-plugins
 /src/wp-content/plugins/*
+!/src/wp-content/plugins/__core__emoji
 !/src/wp-content/plugins/__core__xml-rpc
 !/src/wp-content/plugins/test-*
 !/src/wp-content/plugins/akismet
