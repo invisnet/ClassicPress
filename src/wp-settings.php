@@ -13,6 +13,7 @@
  *
  * @since WP-1.0.0
  */
+define( 'CPINC', 'cp-includes' );
 define( 'WPINC', 'wp-includes' );
 
 // Include files required for initialization.
@@ -114,6 +115,7 @@ wp_start_object_cache();
 
 // Attach the default filters.
 require( ABSPATH . WPINC . '/default-filters.php' );
+require( ABSPATH . CPINC . '/default-filters.php' );
 
 // Initialize multisite if enabled.
 if ( is_multisite() ) {
