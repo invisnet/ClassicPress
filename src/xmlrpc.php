@@ -29,7 +29,7 @@ if ( isset($HTTP_RAW_POST_DATA) )
 include( dirname( __FILE__ ) . '/wp-load.php' );
 
 /** Check XML-RPC is supported */
-if ( !defined( '__CORE__XML_RPC' ) ) {
+if ( !defined( '__CORE__XML-RPC' ) ) {
 	http_response_code( 404 ); // pretend we're not at home
 	exit;
 }
