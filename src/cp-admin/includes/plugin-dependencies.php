@@ -120,7 +120,8 @@ function _get_plugin_features(string $plugin_file, array $plugin_data, string $w
     switch ($which) {
         case 'Provides':
             // plugins always Provide themselves
-            $features = array_merge($plugin_data['Provides'], [strtoupper(dirname($plugin_file).'_'.basename($plugin_file))]);
+            $pluginSelf = strtoupper(dirname($plugin_file).'_'.basename($plugin_file));
+            $features = array_merge($plugin_data['Provides'], [$pluginSelf]);
             break;
         case 'Requires':
             $features = $plugin_data['Requires'];
@@ -147,12 +148,18 @@ function _get_plugin_features(string $plugin_file, array $plugin_data, string $w
  */
 function _get_unfulfilled_features(string $plugin_file, array $plugin_data): array
 {
-    $installed_plugins = get_plugins();
     $plugin_features = _get_plugin_features($plugin_file, $plugin_data, 'Requires');
+    // bail if we have no Requiremenrs
+    if (empty($plugin_features)) return [];
+
+    $installed_plugins = get_plugins();
 
     foreach ($installed_plugins as $installed_plugin => $installed_plugin_data) {
         $installed_plugin_features = _get_plugin_features($installed_plugin, $installed_plugin_data, 'Provides');
         $plugin_features = array_diff($plugin_features, $installed_plugin_features);
+
+        // we could have a lot of plugins - no sense in carrying on
+        if (empty($plugin_features)) break;
     }
 
     return $plugin_features;
@@ -209,6 +216,29 @@ function _calculate_plugin_dependencies(string $plugin_file, array $plugin_data,
 /**
  *  
  *  
+ * @see get_file_data()     In wp-includes/functions.php 
+ *  
+ * @since 2.0.0 
+ * 
+ * @param array $default_headers    With WP-4.9.8, an empty array.
+ *  
+ * @return array 
+ */
+function extra_plugin_headers_filters(array $default_headers): array
+{
+    $dependency_headers = [
+        'Requires' => 'Requires',
+        'Provides' => 'Provides',
+    ];
+
+    // We always get passed an empty array, but just in case that changes later...
+    return array_merge($default_headers, $dependency_headers);
+}
+add_filter('extra_plugin_headers', __NAMESPACE__.'\extra_plugin_headers_filters');
+
+/**
+ *  
+ *  
  * @since 2.0.0 
  *  
  * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`. 
@@ -216,7 +246,7 @@ function _calculate_plugin_dependencies(string $plugin_file, array $plugin_data,
  * @param bool   $markup      Not used.
  * @param bool   $translated  Not used.
  */
-function get_plugin_data_filter(array $plugin_data, string $plugin_file, bool $markup, bool $translate): array
+function plugin_data_filter(array $plugin_data, string $plugin_file, bool $markup, bool $translate): array
 {
     if ($plugin_data['Requires']) {
         // TODO: make this robust
@@ -233,7 +263,7 @@ function get_plugin_data_filter(array $plugin_data, string $plugin_file, bool $m
 
     return $plugin_data;
 }
-add_filter('get_plugin_data', __NAMESPACE__.'\get_plugin_data_filter', 10, 4);
+add_filter('plugin_data', __NAMESPACE__.'\plugin_data_filter', 10, 4);
 
 /**
  * 
