@@ -63,8 +63,6 @@
  *     @type string $TextDomain  Plugin textdomain.
  *     @type string $DomainPath  Plugins relative directory path to .mo files.
  *     @type bool   $Network     Whether the plugin can only be activated network-wide.
- *     @type string $Requires    Features required by the plugin.
- *     @type string $Provides    Features provided by the plugin.
  * }
  */
 function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
@@ -79,8 +77,6 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 		'TextDomain' => 'Text Domain',
 		'DomainPath' => 'Domain Path',
 		'Network' => 'Network',
-        'Requires' => 'Requires',
-        'Provides' => 'Provides',
 		// Site Wide Only is deprecated in favor of Network.
 		'_sitewide' => 'Site Wide Only',
 	);
@@ -111,7 +107,7 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 		$plugin_data['AuthorName'] = $plugin_data['Author'];
 	}
 
-	return apply_filters( 'get_plugin_data', $plugin_data, $plugin_file, $markup, $translate );
+	return apply_filters( 'plugin_data', $plugin_data, $plugin_file, $markup, $translate );
 }
 
 /**
