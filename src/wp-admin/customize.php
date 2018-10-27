@@ -12,6 +12,11 @@ define( 'IFRAME_REQUEST', true );
 /** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
+if ( !defined( '__CORE__CUSTOMIZER' ) ) {
+	http_response_code( 404 ); // pretend we're not at home
+	exit;
+}
+
 if ( ! current_user_can( 'customize' ) ) {
 	wp_die(
 		'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .

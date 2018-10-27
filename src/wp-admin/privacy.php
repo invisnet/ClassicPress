@@ -24,7 +24,7 @@ if ( ! empty( $action ) ) {
 
 		$privacy_page_updated_message = __( 'Privacy Policy page updated successfully.' );
 
-		if ( $privacy_policy_page_id ) {
+		if ( defined( '__CORE__CUSTOMIZER' ) && $privacy_policy_page_id ) {
 			/*
 			 * Don't always link to the menu customizer:
 			 *

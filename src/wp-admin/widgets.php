@@ -351,7 +351,7 @@ echo esc_html( $title );
 ?></h1>
 
 <?php
-if ( current_user_can( 'customize' ) ) {
+if ( defined( '__CORE__CUSTOMIZER' ) && current_user_can( 'customize' ) ) {
 	printf(
 		' <a class="page-title-action hide-if-no-customize" href="%1$s">%2$s</a>',
 		esc_url( add_query_arg(

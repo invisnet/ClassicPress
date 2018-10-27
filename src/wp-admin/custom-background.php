@@ -221,7 +221,7 @@ class Custom_Background {
 <div class="wrap" id="custom-background">
 <h1><?php _e( 'Custom Background' ); ?></h1>
 
-<?php if ( current_user_can( 'customize' ) ) { ?>
+<?php if ( defined( '__CORE__CUSTOMIZER' ) && current_user_can( 'customize' ) ) { ?>
 <div class="notice notice-info hide-if-no-customize">
 	<p>
 		<?php

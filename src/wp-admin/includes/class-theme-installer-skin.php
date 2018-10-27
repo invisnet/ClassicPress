@@ -63,7 +63,7 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 
 		$install_actions = array();
 
-		if ( current_user_can( 'edit_theme_options' ) && current_user_can( 'customize' ) ) {
+		if ( defined( '__CORE__CUSTOMIZER' ) && current_user_can( 'edit_theme_options' ) && current_user_can( 'customize' ) ) {
 			$customize_url = add_query_arg(
 				array(
 					'theme' => urlencode( $stylesheet ),

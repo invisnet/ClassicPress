@@ -160,19 +160,21 @@ $appearance_cap = current_user_can( 'switch_themes') ? 'switch_themes' : 'edit_t
 $menu[60] = array( __( 'Appearance' ), $appearance_cap, 'themes.php', '', 'menu-top menu-icon-appearance', 'menu-appearance', 'dashicons-admin-appearance' );
 	$submenu['themes.php'][5] = array( __( 'Themes' ), $appearance_cap, 'themes.php' );
 
-	$customize_url = add_query_arg( 'return', urlencode( remove_query_arg( wp_removable_query_args(), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ), 'customize.php' );
-	$submenu['themes.php'][6] = array( __( 'Customize' ), 'customize', esc_url( $customize_url ), '', 'hide-if-no-customize' );
+	if ( defined( '__CORE__CUSTOMIZER' ) ) {
+		$customize_url = add_query_arg( 'return', urlencode( remove_query_arg( wp_removable_query_args(), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ), 'customize.php' );
+		$submenu['themes.php'][6] = array( __( 'Customize' ), 'customize', esc_url( $customize_url ), '', 'hide-if-no-customize' );
+	}
 
 	if ( current_theme_supports( 'menus' ) || current_theme_supports( 'widgets' ) ) {
 		$submenu['themes.php'][10] = array( __( 'Menus' ), 'edit_theme_options', 'nav-menus.php' );
 	}
 
-	if ( current_theme_supports( 'custom-header' ) && current_user_can( 'customize') ) {
+	if ( defined( '__CORE__CUSTOMIZER' ) && current_theme_supports( 'custom-header' ) && current_user_can( 'customize') ) {
 		$customize_header_url = add_query_arg( array( 'autofocus' => array( 'control' => 'header_image' ) ), $customize_url );
 		$submenu['themes.php'][15] = array( __( 'Header' ), $appearance_cap, esc_url( $customize_header_url ), '', 'hide-if-no-customize' );
 	}
 
-	if ( current_theme_supports( 'custom-background' ) && current_user_can( 'customize') ) {
+	if ( defined( '__CORE__CUSTOMIZER' ) && current_theme_supports( 'custom-background' ) && current_user_can( 'customize') ) {
 		$customize_background_url = add_query_arg( array( 'autofocus' => array( 'control' => 'background_image' ) ), $customize_url );
 		$submenu['themes.php'][20] = array( __( 'Background' ), $appearance_cap, esc_url( $customize_background_url ), '', 'hide-if-no-customize' );
 	}

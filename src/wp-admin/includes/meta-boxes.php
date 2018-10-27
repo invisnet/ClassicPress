@@ -223,7 +223,7 @@ if ( $can_publish ) : // Contributors don't get to choose the date of publish ?>
 </div><?php // /misc-pub-section ?>
 <?php endif; ?>
 
-<?php if ( 'draft' === $post->post_status && get_post_meta( $post->ID, '_customize_changeset_uuid', true ) ) : ?>
+<?php if ( defined( '__CORE__CUSTOMIZER' ) && 'draft' === $post->post_status && get_post_meta( $post->ID, '_customize_changeset_uuid', true ) ) : ?>
 	<div class="notice notice-info notice-alt inline">
 		<p>
 			<?php

@@ -451,7 +451,7 @@ class Custom_Image_Header {
 <div class="wrap">
 <h1><?php _e( 'Custom Header' ); ?></h1>
 
-<?php if ( current_user_can( 'customize' ) ) { ?>
+<?php if ( defined( '__CORE__CUSTOMIZER' ) &&  current_user_can( 'customize' ) ) { ?>
 <div class="notice notice-info hide-if-no-customize">
 	<p>
 		<?php

@@ -185,7 +185,7 @@ if ( $file_description != $file_show ) {
 		<pre><?php echo esc_html( $edit_error->get_error_message() ? $edit_error->get_error_message() : $edit_error->get_error_code() ); ?></pre>
 	</div>
 <?php endif; ?>
-<?php if ( preg_match( '/\.css$/', $file ) ) : ?>
+<?php if ( defined( '__CORE__CUSTOMIZER' ) && preg_match( '/\.css$/', $file ) ) : ?>
 	<div id="message" class="notice-info notice">
 		<p><strong><?php _e( 'Did you know?' ); ?></strong></p>
 		<p>

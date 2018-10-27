@@ -2772,6 +2772,10 @@ function check_theme_switched() {
  */
 function _wp_customize_include() {
 
+	if ( ! defined( '__CORE__CUSTOMIZER' ) ) {
+		return;
+	}
+
 	$is_customize_admin_page = ( is_admin() && 'customize.php' == basename( $_SERVER['PHP_SELF'] ) );
 	$should_include = (
 		$is_customize_admin_page

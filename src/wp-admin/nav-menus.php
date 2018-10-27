@@ -578,7 +578,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 <div class="wrap">
 	<h1 class="wp-heading-inline"><?php echo esc_html( __( 'Menus' ) ); ?></h1>
 	<?php
-	if ( current_user_can( 'customize' ) ) :
+	if ( defined( '__CORE__CUSTOMIZER' ) && current_user_can( 'customize' ) ) :
 		$focus = $locations_screen ? array( 'section' => 'menu_locations' ) : array( 'panel' => 'nav_menus' );
 		printf(
 			' <a class="page-title-action hide-if-no-customize" href="%1$s">%2$s</a>',
